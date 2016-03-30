@@ -24,9 +24,9 @@
             var $settings = settings;
 
             var counterUpper = function() {
-                var nums = [];
                 var divisions = $settings.time / $settings.delay;
-                var num = $this.text();
+                var num = $this.attr('data-value');
+                var nums = [num];
                 var isComma = /[0-9]+,[0-9]+/.test(num);
                 num = num.replace(/,/g, '');
                 var isInt = /^[0-9]+$/.test(num);
@@ -59,17 +59,15 @@
 
                 // Updates the number until we're done
                 var f = function() {
-
                     if ($this.data('counterup-nums')) {
 
+                        $this.text($this.data('counterup-nums').shift());
                         if ($this.data('counterup-nums').length) {
-                            $this.text($this.data('counterup-nums').shift());
                             setTimeout($this.data('counterup-func'), $settings.delay);
                         } else {
                             delete $this.data('counterup-nums');
                             $this.data('counterup-nums', null);
                             $this.data('counterup-func', null);
-//                            $this.text(0);
                         }
                     }
                 };
